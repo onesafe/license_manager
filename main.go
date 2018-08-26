@@ -5,12 +5,15 @@ import (
 
 	"github.com/onesafe/license_manager/config/env"
 	"github.com/onesafe/license_manager/db"
+	"github.com/onesafe/license_manager/router"
 )
 
 func main() {
 	fmt.Println("Staring Lincese Manager")
 
 	DB_init()
+
+	Router_init()
 
 }
 
@@ -32,4 +35,12 @@ func DB_init() {
 		panic("Failed to connect to database: " + err.Error())
 	}
 	fmt.Println("Database initialized")
+}
+
+func Router_init() {
+	fmt.Println("Starting API Router")
+	Router := router.GetAPIRouter()
+
+	// Run API Router
+	Router.Run()
 }
