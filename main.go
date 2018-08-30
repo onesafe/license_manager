@@ -5,6 +5,7 @@ import (
 
 	"github.com/onesafe/license_manager/config/env"
 	"github.com/onesafe/license_manager/db"
+	"github.com/onesafe/license_manager/manager"
 	"github.com/onesafe/license_manager/router"
 )
 
@@ -40,6 +41,8 @@ func DB_init() {
 func Router_init() {
 	fmt.Println("Starting API Router")
 	Router := router.GetAPIRouter()
+
+	manager.GetLicenseManager().RegisterPath()
 
 	// Run API Router
 	Router.Run()
