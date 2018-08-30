@@ -21,8 +21,8 @@ func GetLicenseManager() *LicenseManager {
 }
 
 func (m *LicenseManager) RegisterPath() error {
-	m.apiRouter.Register("POST", "/licenses/upload", m.handlerLicenseUpload)
-	m.apiRouter.Register("GET", "/licenses", m.handlerListLicenses)
+	m.apiRouter.Register("POST", "/license-manager/v1/licenses/upload", m.handlerLicenseUpload)
+	m.apiRouter.Register("GET", "/license-manager/v1/licenses", m.handlerListLicenses)
 
 	return nil
 }
@@ -33,8 +33,9 @@ curl -X POST http://localhost:8080/licenses/upload -F "file=@/Users/name/Documen
 */
 // @Summary Upload License File
 // @Description Upload License File
-// @Accept  json
+// @Accept  multipart/form-data
 // @Produce  json
+// @Param file formData file true "license file"
 // @Success 200 {string} string	"ok"
 // @Router /licenses/upload [post]
 func (m *LicenseManager) handlerLicenseUpload(ctx *gin.Context) {

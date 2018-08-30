@@ -1,4 +1,4 @@
-basePath: /v1
+basePath: /license-manager/v1
 info:
   contact:
     email: onesafe@163.com
@@ -23,8 +23,14 @@ paths:
   /licenses/upload:
     post:
       consumes:
-      - application/json
+      - multipart/form-data
       description: Upload License File
+      parameters:
+      - description: license file
+        in: formData
+        name: file
+        required: true
+        type: file
       produces:
       - application/json
       responses:
