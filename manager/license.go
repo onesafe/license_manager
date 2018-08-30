@@ -31,6 +31,12 @@ func (m *LicenseManager) RegisterPath() error {
 curl -X POST http://localhost:8080/licenses/upload -F "file=@/Users/name/Documents/licensefile"
  -H "Content-Type: multipart/form-data"
 */
+// @Summary Upload License File
+// @Description Upload License File
+// @Accept  json
+// @Produce  json
+// @Success 200 {string} string	"ok"
+// @Router /licenses/upload [post]
 func (m *LicenseManager) handlerLicenseUpload(ctx *gin.Context) {
 	licenseFile, err := ctx.FormFile("file")
 	if err != nil {
@@ -63,6 +69,12 @@ func (m *LicenseManager) handlerLicenseUpload(ctx *gin.Context) {
 	ctx.String(http.StatusOK, fmt.Sprintf("'%s' uploaded!", licenseFile.Filename))
 }
 
+// @Summary Get all licenses
+// @Description Get all licenses
+// @Accept  json
+// @Produce  json
+// @Success 200 {string} string	"ok"
+// @Router /licenses [get]
 func (m *LicenseManager) handlerListLicenses(ctx *gin.Context) {
 	log.Println("Get all licenses")
 

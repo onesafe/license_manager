@@ -1,0 +1,36 @@
+basePath: /v1
+info:
+  contact:
+    email: onesafe@163.com
+  description: This is a doc describe API of License Manager
+  license: {}
+  title: License Manager API
+  version: "0.1"
+paths:
+  /licenses:
+    get:
+      consumes:
+      - application/json
+      description: Get all licenses
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: Get all licenses
+  /licenses/upload:
+    post:
+      consumes:
+      - application/json
+      description: Upload License File
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: Upload License File
+swagger: "2.0"

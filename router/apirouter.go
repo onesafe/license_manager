@@ -1,18 +1,18 @@
 package router
 
 import (
-	"os"
-	"io"
 	"fmt"
+	"io"
+	"os"
 
-	"github.com/gin-gonic/gin"
+	gin "github.com/gin-gonic/gin"
 	"github.com/onesafe/license_manager/log"
 )
 
 var _API_ROUTER *APIRouter
 
 type APIRouter struct {
-	mainRouter *gin.Engine
+	mainRouter  *gin.Engine
 	initialized bool
 }
 
@@ -41,8 +41,8 @@ func _init() {
 
 	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
 
-	_API_ROUTER = &APIRouter {
-		mainRouter: gin.New(),
+	_API_ROUTER = &APIRouter{
+		mainRouter:  gin.New(),
 		initialized: false,
 	}
 
@@ -53,9 +53,9 @@ func _init() {
 }
 
 func _ping(ctx *gin.Context) {
-	ctx.JSON(200, gin.H {
+	ctx.JSON(200, gin.H{
 		"message": "pong",
-		"data": "test",
+		"data":    "test",
 	})
 }
 
@@ -76,7 +76,7 @@ func (r *APIRouter) Register(method, path string, f gin.HandlerFunc) error {
 	case "DELETE":
 		r.mainRouter.DELETE(path, handlers...)
 	default:
-		err  = fmt.Errorf("Invalid Method to register")
+		err = fmt.Errorf("Invalid Method to register")
 	}
 	return err
 }

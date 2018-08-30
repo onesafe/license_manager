@@ -1,0 +1,55 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a doc describe API of License Manager",
+        "title": "License Manager API",
+        "contact": {
+            "email": "onesafe@163.com"
+        },
+        "license": {},
+        "version": "0.1"
+    },
+    "basePath": "/v1",
+    "paths": {
+        "/licenses": {
+            "get": {
+                "description": "Get all licenses",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get all licenses",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/licenses/upload": {
+            "post": {
+                "description": "Upload License File",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Upload License File",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

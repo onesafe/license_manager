@@ -7,15 +7,21 @@ import (
 	"github.com/onesafe/license_manager/db"
 	"github.com/onesafe/license_manager/manager"
 	"github.com/onesafe/license_manager/router"
+
+	_ "github.com/onesafe/license_manager/docs"
 )
 
+// @title License Manager API
+// @version 0.1
+// @description This is a doc describe API of License Manager
+// @BasePath /v1
+// @contact.email onesafe@163.com
 func main() {
 	fmt.Println("Staring Lincese Manager")
 
 	DB_init()
 
 	Router_init()
-
 }
 
 func DB_init() {
@@ -43,6 +49,9 @@ func Router_init() {
 	Router := router.GetAPIRouter()
 
 	manager.GetLicenseManager().RegisterPath()
+
+	// doc
+	//Router.Register("GET", "/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// Run API Router
 	Router.Run()
