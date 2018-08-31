@@ -80,7 +80,9 @@ func DecryptLicense(content string) (license *views.License, err error) {
 	}
 	log.Println(string(publicKeyBytes))
 
-	publicKeyObj, err := x509.ParsePKIXPublicKey(publicKeyBytes)
+	block, _ := pem.Decode(publicKeyBytes)
+
+	publicKeyObj, err := x509.ParsePKIXPublicKey(block.Bytes)
 	if err != nil {
 		err = fmt.Errorf("Parse public key interface error: %s", err)
 		return

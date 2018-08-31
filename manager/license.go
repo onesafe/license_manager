@@ -124,7 +124,7 @@ func (m *LicenseManager) handlerLicenseUpload(ctx *gin.Context) {
 	err = registerLicense(lcs, string(data))
 	if err != nil {
 		msg := "Register License error"
-		utils.BadRequestResp(ctx, msg)
+		utils.BadRequestResp(ctx, msg+err.Error())
 		return
 	}
 
