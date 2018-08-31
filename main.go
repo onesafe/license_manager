@@ -19,7 +19,6 @@ import (
 // @BasePath /license-manager/v1
 // @contact.email onesafe@163.com
 func main() {
-	fmt.Println("Staring Lincese Manager")
 
 	DB_init()
 

@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/onesafe/license_manager/utils"
 )
 
 type LicenseManager struct {
@@ -43,7 +43,7 @@ func (m *LicenseManager) handlerLicenseUpload(ctx *gin.Context) {
 	if err != nil {
 		msg := "Please upload license file"
 		fmt.Println(msg)
-		ctx.String(http.StatusBadRequest, msg)
+		utils.BadRequestResp(ctx, msg)
 	}
 	log.Println("license file Name: " + licenseFile.Filename)
 
@@ -61,13 +61,13 @@ func (m *LicenseManager) handlerLicenseUpload(ctx *gin.Context) {
 	if err != nil {
 		msg := "file content read error"
 		fmt.Println(msg)
-		ctx.String(http.StatusBadRequest, msg)
+		utils.BadRequestResp(ctx, msg)
 	}
 
 	// print license file content
 	log.Println("license content is: \n" + string(data))
 
-	ctx.String(http.StatusOK, fmt.Sprintf("'%s' uploaded!", licenseFile.Filename))
+	utils.OkResp(ctx, fmt.Sprintf("%s uploaded!", licenseFile.Filename), nil)
 }
 
 // @Summary Get all licenses
@@ -79,5 +79,5 @@ func (m *LicenseManager) handlerLicenseUpload(ctx *gin.Context) {
 func (m *LicenseManager) handlerListLicenses(ctx *gin.Context) {
 	log.Println("Get all licenses")
 
-	ctx.String(http.StatusOK, "OK")
+	utils.OkResp(ctx, "OK", nil)
 }
