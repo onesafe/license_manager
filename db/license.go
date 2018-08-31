@@ -30,3 +30,20 @@ func (l *License_record) BeforeCreate(scope *gorm.Scope) error {
 func (l *License_record) Save() *gorm.DB {
 	return DB.Save(l)
 }
+
+func (l *License_record) GetByProduct(product string) error {
+	l.Product = product
+	err := DB.First(l).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *License_record) Create() error {
+	err := DB.Create(&l).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}

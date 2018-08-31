@@ -10,6 +10,7 @@ import (
 	"github.com/onesafe/license_manager/cipher"
 	"github.com/onesafe/license_manager/modules"
 	"github.com/onesafe/license_manager/utils"
+	"github.com/onesafe/license_manager/views"
 )
 
 type LicenseManager struct {
@@ -48,6 +49,7 @@ func (m *LicenseManager) handlerLicenseUpload(ctx *gin.Context) {
 		msg := "Please upload license file"
 		fmt.Println(msg)
 		utils.BadRequestResp(ctx, msg)
+		return
 	}
 	log.Println("license file Name: " + licenseFile.Filename)
 
@@ -66,10 +68,30 @@ func (m *LicenseManager) handlerLicenseUpload(ctx *gin.Context) {
 		msg := "file content read error"
 		fmt.Println(msg)
 		utils.BadRequestResp(ctx, msg)
+		return
 	}
 
 	// print license file content
 	log.Println("license content is: \n" + string(data))
+
+	// Decrypt License
+	var lcs *views.License
+	lcs, err = cipher.DecryptLicense(string(data))
+	if err != nil {
+		msg := "Decrypt License error"
+		fmt.Println(msg)
+		utils.BadRequestResp(ctx, msg)
+		return
+	}
+	log.Println("license parse finished")
+
+	// Register License
+	err = registerLicense(lcs, string(data))
+	if err != nil {
+		msg := "Register License error"
+		utils.BadRequestResp(ctx, msg)
+		return
+	}
 
 	utils.OkResp(ctx, fmt.Sprintf("%s uploaded!", licenseFile.Filename), nil)
 }
