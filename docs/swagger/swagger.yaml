@@ -53,4 +53,18 @@ paths:
             $ref: '#/definitions/utils.Response'
             type: object
       summary: Upload License File
+  /rsakeys:
+    get:
+      consumes:
+      - application/json
+      description: Generate rsa keys
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+            type: object
+      summary: Generate rsa keys
 swagger: "2.0"
