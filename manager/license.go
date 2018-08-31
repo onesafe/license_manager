@@ -1,6 +1,7 @@
 package manager
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -27,9 +28,43 @@ func (m *LicenseManager) RegisterPath() error {
 	m.apiRouter.Register("POST", "/license-manager/v1/licenses/upload", m.handlerLicenseUpload)
 	m.apiRouter.Register("GET", "/license-manager/v1/licenses", m.handlerListLicenses)
 
+	m.apiRouter.Register("POST", "/license-manager/v1/daslicense", m.handlerGenDasLicense)
+
 	m.apiRouter.Register("GET", "/license-manager/v1/rsakeys", m.handlerGenRSAKeys)
 
 	return nil
+}
+
+// @Summary Generate Das License
+// @Description Generate Das License
+// @Accept  json
+// @Produce  json
+// @Param body body views.DasLicense true "Das license"
+// @Success 200 {object} utils.Response
+// @Router /daslicense [post]
+func (m *LicenseManager) handlerGenDasLicense(ctx *gin.Context) {
+
+	var data views.DasLicense
+	err := ctx.ShouldBindJSON(&data)
+	if err != nil {
+		utils.BadRequestResp(ctx, "Invalid Json data: "+err.Error())
+	}
+
+	// convert license to []byte
+	buf, err := json.Marshal(data)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(string(buf))
+
+	// encrypt license
+	encryptedLicense, err := cipher.EncryptLicense(buf)
+	if err != nil {
+		utils.BadRequestResp(ctx, "Encrypt License error: "+err.Error())
+	}
+	log.Println(encryptedLicense)
+
+	utils.OkResp(ctx, "Encrypted License Success", encryptedLicense)
 }
 
 /*
@@ -80,7 +115,7 @@ func (m *LicenseManager) handlerLicenseUpload(ctx *gin.Context) {
 	if err != nil {
 		msg := "Decrypt License error"
 		fmt.Println(msg)
-		utils.BadRequestResp(ctx, msg)
+		utils.BadRequestResp(ctx, msg+err.Error())
 		return
 	}
 	log.Println("license parse finished")

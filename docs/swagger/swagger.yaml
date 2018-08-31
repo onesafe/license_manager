@@ -11,6 +11,25 @@ definitions:
       status:
         type: string
     type: object
+  views.DasLicense:
+    properties:
+      DiDiExpiredDate:
+        type: integer
+      expiredDate:
+        type: integer
+      issuedDate:
+        type: integer
+      maxCpuCores:
+        type: integer
+      maxMemoryBytes:
+        type: integer
+      product:
+        type: string
+      versionsSupported:
+        items:
+          type: string
+        type: array
+    type: object
 info:
   contact:
     email: onesafe@163.com
@@ -19,6 +38,28 @@ info:
   title: License Manager API
   version: "0.1"
 paths:
+  /daslicense:
+    post:
+      consumes:
+      - application/json
+      description: Generate Das License
+      parameters:
+      - description: Das license
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/views.DasLicense'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+            type: object
+      summary: Generate Das License
   /licenses:
     get:
       consumes:
