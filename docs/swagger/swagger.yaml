@@ -1,4 +1,16 @@
 basePath: /license-manager/v1
+definitions:
+  utils.Response:
+    properties:
+      baseStatus:
+        type: string
+      data:
+        type: object
+      msg:
+        type: string
+      status:
+        type: string
+    type: object
 info:
   contact:
     email: onesafe@163.com
@@ -16,9 +28,10 @@ paths:
       - application/json
       responses:
         "200":
-          description: ok
+          description: OK
           schema:
-            type: string
+            $ref: '#/definitions/utils.Response'
+            type: object
       summary: Get all licenses
   /licenses/upload:
     post:
@@ -35,8 +48,9 @@ paths:
       - application/json
       responses:
         "200":
-          description: ok
+          description: OK
           schema:
-            type: string
+            $ref: '#/definitions/utils.Response'
+            type: object
       summary: Upload License File
 swagger: "2.0"

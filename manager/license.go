@@ -36,7 +36,7 @@ curl -X POST http://localhost:8080/licenses/upload -F "file=@/Users/name/Documen
 // @Accept  multipart/form-data
 // @Produce  json
 // @Param file formData file true "license file"
-// @Success 200 {string} string	"ok"
+// @Success 200 {object} utils.Response
 // @Router /licenses/upload [post]
 func (m *LicenseManager) handlerLicenseUpload(ctx *gin.Context) {
 	licenseFile, err := ctx.FormFile("file")
@@ -74,7 +74,7 @@ func (m *LicenseManager) handlerLicenseUpload(ctx *gin.Context) {
 // @Description Get all licenses
 // @Accept  json
 // @Produce  json
-// @Success 200 {string} string	"ok"
+// @Success 200 {object} utils.Response
 // @Router /licenses [get]
 func (m *LicenseManager) handlerListLicenses(ctx *gin.Context) {
 	log.Println("Get all licenses")
