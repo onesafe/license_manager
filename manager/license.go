@@ -6,10 +6,12 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/onesafe/license_manager/cipher"
 	"github.com/onesafe/license_manager/modules"
+	"github.com/onesafe/license_manager/swagtype"
 	"github.com/onesafe/license_manager/utils"
 	"github.com/onesafe/license_manager/views"
 )
@@ -39,15 +41,34 @@ func (m *LicenseManager) RegisterPath() error {
 // @Description Generate Das License
 // @Accept  json
 // @Produce  json
-// @Param body body views.DasLicense true "Das license"
+// @Param body body swagtype.DasLicense true "Das license"
 // @Success 200 {object} utils.Response
 // @Router /daslicense [post]
 func (m *LicenseManager) handlerGenDasLicense(ctx *gin.Context) {
 
-	var data views.DasLicense
-	err := ctx.ShouldBindJSON(&data)
+	var inputdata swagtype.DasLicense
+	err := ctx.ShouldBindJSON(&inputdata)
 	if err != nil {
 		utils.BadRequestResp(ctx, "Invalid Json data: "+err.Error())
+	}
+
+	DiDiExpiredDate, _ := time.Parse("2006-01-02", inputdata.DiDiExpiredDate)
+	ExpiredDate, _ := time.Parse("2006-01-02", inputdata.ExpiredDate)
+
+	license := views.License{
+		IssuedDate:        int64(time.Now().UnixNano() / 1000000),
+		ExpiredDate:       int64(ExpiredDate.UnixNano() / 1000000),
+		Product:           inputdata.Product,
+		VersionsSupported: inputdata.VersionsSupported,
+	}
+	Component := views.ComponentLicense{
+		DiDiExpiredDate: int64(DiDiExpiredDate.UnixNano() / 1000000),
+		License:         license,
+	}
+	data := views.DasLicense{
+		ComponentLicense: Component,
+		MaxCpuCores:      inputdata.MaxCpuCores,
+		MaxMemoryBytes:   inputdata.MaxMemoryBytes,
 	}
 
 	// convert license to []byte

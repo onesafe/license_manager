@@ -1,24 +1,11 @@
 basePath: /license-manager/v1
 definitions:
-  utils.Response:
-    properties:
-      baseStatus:
-        type: string
-      data:
-        type: object
-      msg:
-        type: string
-      status:
-        type: string
-    type: object
-  views.DasLicense:
+  swagtype.DasLicense:
     properties:
       DiDiExpiredDate:
-        type: integer
+        type: string
       expiredDate:
-        type: integer
-      issuedDate:
-        type: integer
+        type: string
       maxCpuCores:
         type: integer
       maxMemoryBytes:
@@ -29,6 +16,17 @@ definitions:
         items:
           type: string
         type: array
+    type: object
+  utils.Response:
+    properties:
+      baseStatus:
+        type: string
+      data:
+        type: object
+      msg:
+        type: string
+      status:
+        type: string
     type: object
 info:
   contact:
@@ -49,7 +47,7 @@ paths:
         name: body
         required: true
         schema:
-          $ref: '#/definitions/views.DasLicense'
+          $ref: '#/definitions/swagtype.DasLicense'
           type: object
       produces:
       - application/json

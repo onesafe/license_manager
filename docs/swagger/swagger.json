@@ -29,7 +29,7 @@
                         "required": true,
                         "schema": {
                             "type": "object",
-                            "$ref": "#/definitions/views.DasLicense"
+                            "$ref": "#/definitions/swagtype.DasLicense"
                         }
                     }
                 ],
@@ -118,34 +118,14 @@
         }
     },
     "definitions": {
-        "utils.Response": {
-            "type": "object",
-            "properties": {
-                "baseStatus": {
-                    "type": "string"
-                },
-                "data": {
-                    "type": "object"
-                },
-                "msg": {
-                    "type": "string"
-                },
-                "status": {
-                    "type": "string"
-                }
-            }
-        },
-        "views.DasLicense": {
+        "swagtype.DasLicense": {
             "type": "object",
             "properties": {
                 "DiDiExpiredDate": {
-                    "type": "integer"
+                    "type": "string"
                 },
                 "expiredDate": {
-                    "type": "integer"
-                },
-                "issuedDate": {
-                    "type": "integer"
+                    "type": "string"
                 },
                 "maxCpuCores": {
                     "type": "integer"
@@ -161,6 +141,23 @@
                     "items": {
                         "type": "string"
                     }
+                }
+            }
+        },
+        "utils.Response": {
+            "type": "object",
+            "properties": {
+                "baseStatus": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "object"
+                },
+                "msg": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
                 }
             }
         }
