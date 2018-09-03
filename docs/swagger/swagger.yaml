@@ -63,6 +63,15 @@ paths:
       consumes:
       - application/json
       description: Get all licenses
+      parameters:
+      - description: Page
+        in: query
+        name: page
+        type: integer
+      - description: Size
+        in: query
+        name: size
+        type: integer
       produces:
       - application/json
       responses:

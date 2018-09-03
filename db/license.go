@@ -31,6 +31,11 @@ func (l *License_record) Save() *gorm.DB {
 	return DB.Save(l)
 }
 
+func (l *License_record) GetLicenses(pageNum int, pageSize int, maps interface{}) {
+	DB.Offset(pageNum).Limit(pageSize).Find(&l)
+	return
+}
+
 func (l *License_record) GetByProduct(product string) error {
 	l.Product = product
 	err := DB.First(l).Error

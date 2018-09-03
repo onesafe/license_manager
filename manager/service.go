@@ -2,6 +2,7 @@ package manager
 
 import (
 	"log"
+	"strings"
 	"time"
 
 	"github.com/onesafe/license_manager/db"
@@ -14,6 +15,8 @@ func registerLicense(license *views.License, content string) (err error) {
 	if valid == false {
 		return
 	}
+
+	content = strings.Replace(content, "\n", "", -1)
 
 	// create or update license record
 	lr := &db.License_record{}

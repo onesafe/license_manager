@@ -8,8 +8,11 @@ import (
 	"os"
 	"time"
 
+	"github.com/Unknwon/com"
 	"github.com/gin-gonic/gin"
+
 	"github.com/onesafe/license_manager/cipher"
+	"github.com/onesafe/license_manager/db"
 	"github.com/onesafe/license_manager/modules"
 	"github.com/onesafe/license_manager/swagtype"
 	"github.com/onesafe/license_manager/utils"
@@ -156,12 +159,28 @@ func (m *LicenseManager) handlerLicenseUpload(ctx *gin.Context) {
 // @Description Get all licenses
 // @Accept  json
 // @Produce  json
+// @Param page query int false "Page"
+// @Param size query int false "Size"
 // @Success 200 {object} utils.Response
 // @Router /licenses [get]
 func (m *LicenseManager) handlerListLicenses(ctx *gin.Context) {
 	log.Println("Get all licenses")
+	page := ctx.Query("page")
+	size := ctx.Query("size")
 
-	utils.OkResp(ctx, "OK", nil)
+	if page == "" {
+		page = "0"
+	}
+	if size == "" {
+		size = "10"
+	}
+	maps := make(map[string]interface{})
+
+	lr := &db.License_record{}
+	lr.GetLicenses(com.StrTo(page).MustInt(), com.StrTo(size).MustInt(), maps)
+	fmt.Println(lr)
+
+	utils.OkResp(ctx, "OK", lr)
 }
 
 // @Summary Generate rsa keys
