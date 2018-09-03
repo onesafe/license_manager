@@ -1,4 +1,4 @@
-package manager
+package v1
 
 import (
 	"log"
