@@ -24,6 +24,7 @@ func GetLicenseManager() *LicenseManager {
 func (m *LicenseManager) RegisterPath() error {
 	m.apiRouter.Register("POST", "/license-manager/v1/licenses/upload", v1.LicenseUpload)
 	m.apiRouter.Register("GET", "/license-manager/v1/licenses", v1.ListLicenses)
+	m.apiRouter.Register("GET", "/license-manager/v1/license", v1.GetLicense)
 	m.apiRouter.Register("POST", "/license-manager/v1/daslicense", v1.GenDasLicense)
 
 	m.apiRouter.Register("GET", "/license-manager/v1/rsakeys", m.handlerGenRSAKeys)

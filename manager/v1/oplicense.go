@@ -159,3 +159,37 @@ func ListLicenses(ctx *gin.Context) {
 
 	utils.OkResp(ctx, "OK", lr)
 }
+
+// @Summary Get One licenses
+// @Description Get One licenses
+// @Accept  json
+// @Produce  json
+// @Param product query string false "Product"
+// @Param id query string false "ID"
+// @Success 200 {object} utils.Response
+// @Router /license [get]
+func GetLicense(ctx *gin.Context) {
+	log.Println("Get One licenses")
+	product := ctx.Query("product")
+	id := ctx.Query("id")
+
+	maps := make(map[string]interface{})
+
+	if product != "" {
+		maps["product"] = product
+	}
+	if id != "" {
+		maps["id"] = id
+	}
+
+	lr := &db.License_record{}
+	err := lr.GetLicense(maps)
+	if err != nil {
+		msg := "Get License Error "
+		utils.BadRequestResp(ctx, msg+err.Error())
+		return
+	}
+	fmt.Println(lr)
+
+	utils.OkResp(ctx, "OK", lr)
+}

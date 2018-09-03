@@ -58,6 +58,29 @@ paths:
             $ref: '#/definitions/utils.Response'
             type: object
       summary: Generate Das License
+  /license:
+    get:
+      consumes:
+      - application/json
+      description: Get One licenses
+      parameters:
+      - description: Product
+        in: query
+        name: product
+        type: string
+      - description: ID
+        in: query
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+            type: object
+      summary: Get One licenses
   /licenses:
     get:
       consumes:

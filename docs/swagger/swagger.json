@@ -44,6 +44,41 @@
                 }
             }
         },
+        "/license": {
+            "get": {
+                "description": "Get One licenses",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get One licenses",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Product",
+                        "name": "product",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/utils.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/licenses": {
             "get": {
                 "description": "Get all licenses",
