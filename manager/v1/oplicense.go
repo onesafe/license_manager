@@ -62,6 +62,7 @@ func GenDasLicense(ctx *gin.Context) {
 	encryptedLicense, err := cipher.EncryptLicense(buf)
 	if err != nil {
 		utils.BadRequestResp(ctx, "Encrypt License error: "+err.Error())
+		return
 	}
 	log.Println(encryptedLicense)
 
