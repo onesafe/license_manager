@@ -155,10 +155,11 @@ func ListLicenses(ctx *gin.Context) {
 	maps := make(map[string]interface{})
 
 	lr := &db.License_record{}
-	lr.GetLicenses(com.StrTo(page).MustInt(), com.StrTo(size).MustInt(), maps)
-	fmt.Println(lr)
+	var ls []*db.License_record
+	ls = lr.GetLicenses(com.StrTo(page).MustInt(), com.StrTo(size).MustInt(), maps)
+	fmt.Println(ls)
 
-	utils.OkResp(ctx, "OK", lr)
+	utils.OkResp(ctx, "OK", ls)
 }
 
 // @Summary Get One licenses
