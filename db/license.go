@@ -38,7 +38,7 @@ func (l *License_record) GetLicenses(pageNum int, pageSize int, maps interface{}
 
 func (l *License_record) GetLicense(maps interface{}) error {
 	err := DB.Where(maps).First(&l).Error
-	if err != nil {
+	if err != nil && err != gorm.ErrRecordNotFound {
 		return err
 	}
 	return nil
@@ -46,7 +46,7 @@ func (l *License_record) GetLicense(maps interface{}) error {
 
 func (l *License_record) GetByProduct(product string) error {
 	err := DB.Where("product = ?", product).First(&l).Error
-	if err != nil {
+	if err != nil && err != gorm.ErrRecordNotFound {
 		return err
 	}
 	return nil
